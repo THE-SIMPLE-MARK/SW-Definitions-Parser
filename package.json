@@ -1,0 +1,27 @@
+{
+  "name": "sw-definitions-parser",
+  "version": "1.0.0",
+  "description": "Command Line Interface that collects all Stormworks definitions into a JSON file.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/THE-SIMPLE-MARK/SW-Definitions-Parser.git"
+  },
+  "keywords": [],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/THE-SIMPLE-MARK/SW-Definitions-Parser/issues"
+  },
+  "homepage": "https://github.com/THE-SIMPLE-MARK/SW-Definitions-Parser#readme",
+  "dependencies": {
+    "chalk": "^5.0.1",
+    "fast-xml-parser": "^4.0.10",
+    "fs": "^0.0.1-security",
+    "inquirer": "^9.1.2",
+    "nanospinner": "^1.1.0"
+  }
+}
