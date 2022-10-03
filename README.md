@@ -4,5 +4,5 @@ Currently only parser the most important data. Made for usage with one of my clo
 
 ## Usage
 ```bash
-npx SW-Definitions-Parser
+npx sw-definitions-parser
 ```
