@@ -28,14 +28,14 @@ async function getPaths() {
     type: "input",
     message: "Output folder path:",
     default() {
-      return "Definitions folder";
+      return inputPath;
     },
   })
 
-  destPath = question2.destPath === "Definitions folder" ? question1.inputPath : question2.destPath;
+  destPath = question2.destPath
 
   // make sure that the paths exist
-  const folderCheckSpinner = createSpinner("Checking folders paths...").start();
+  const folderCheckSpinner = createSpinner("Checking folders' paths...").start();
   await sleep(1000);
 
   if (!existsSync(inputPath)) {
@@ -69,33 +69,26 @@ async function parseDefinitions() {
 
     const { definition } = await parser.parse(fileData);
 
+    const hasTags = definition?._tags !== ""
+
     finalJson.definitions.push({
-      name: definition._name,
-      description: definition.tooltip_properties._description,
-      shortDescription: definition.tooltip_properties._short_description,
-      type: definition._type,
-      mass: definition._mass,
-      value: definition._value,
-      flags: definition._flags,
-      tags: definition._tags,
-      surfaces: definition.surfaces.surface,
-      buoyancySurfaces: definition.buoyancy_surfaces.surface,
-      voxels: definition.voxels.voxel,
-      voxelMin: definition.voxel_min,
-      voxelMax: definition.voxel_max,
-      voxelPhysMin: definition.voxel_physics_min,
-      voxelPhysMax: definition.voxel_physics_max,
-      bbPhysMin: definition.bb_physics_min,
-      bbPhysMax: definition.bb_physics_max,
-      compartmentSamplePos: definition.compartment_sample_pos,
-      constraintPosParent: definition.constraint_pos_parent,
-      constraintPosChild: definition.constraint_pos_child,
+      name: definition?._name ?? null,
+      description: definition?.tooltip_properties?._description ?? null,
+      shortDescription: definition?.tooltip_properties?._short_description ?? null,
+      type: definition?._type ?? null,
+      mass: definition?._mass ?? null,
+      value: definition?._value ?? null,
+      flags: definition?._flags ?? null,
+      tags: hasTags ? definition?._tags?.split(",") : [] ?? null,
     })
 
     await sleep(1);
     finishedFiles++;
+
+    const percentage = Math.round(finishedFiles / fileNames.length * 100)
+
     spinner.update({
-      text: `Parsing XML definitions... [${Math.round(finishedFiles / fileNames.length * 100)}%]`
+      text: `Parsing XML definitions... [${percentage}%] (${finishedFiles} / ${fileNames.length})`
     })
   }
 
